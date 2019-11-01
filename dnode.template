@@ -1,0 +1,15 @@
+#include<cstdlib>
+#include<iterator>
+#include<iostream>
+
+
+using namespace std;
+
+template <class T>
+Dnode<T>::Dnode(const T init_data, Dnode* init_fore, Dnode* init_back){
+     data = init_data;
+     link_fore = init_fore;
+     link_back = init_back;
+
+}
+

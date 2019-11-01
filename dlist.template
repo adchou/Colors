@@ -1,0 +1,114 @@
+#include<cstdlib>
+#include<iterator>
+#include<iostream>
+
+
+using namespace std;
+
+template <class T>
+dlist<T>::dlist()
+{
+    head = NULL;
+    tail = NULL;
+
+}
+
+template <class T>
+void dlist<T>::front_insert(T entry)
+{
+    //Dnode<T>* head;
+    if(head == NULL)
+    {
+        head = new Dnode<T>;
+        tail = head;
+        return;
+    }
+
+    //head = new Dnode<T>(entry, head);
+
+    if(head != NULL)
+    {
+        head = new Dnode<T>(entry, head);
+
+        Dnode<T>* cursor;
+
+        cursor = head->get_next();
+
+        cursor->set_previous(head);
+
+    }
+}
+
+template <class T>
+void dlist<T>::rear_insert(T entry)
+{
+    Dnode<T> *newNode = new Dnode<T>(entry);
+    if(head == NULL)
+    {
+        head = newNode;
+        tail = head;
+        return;
+    }
+    
+    tail->set_next(newNode);
+    newNode->set_previous(tail);
+    tail = tail->get_next();
+
+
+    
+    
+    //tail = new Dnode<T>(entry, tail);
+}
+
+template <class T>
+void dlist<T>::front_remove()
+{
+    if(head == NULL)
+    {
+        return;
+    }
+    Dnode<T> *remove_ptr;
+    remove_ptr = head;
+    head = head->get_next();
+    delete remove_ptr;
+
+    if(head != NULL)
+    {
+        head->set_previous(NULL);
+    }
+}
+
+template <class T>
+void dlist<T>::rear_remove()
+{
+    if(head == NULL)
+    {
+        return;
+    }
+    Dnode<T> *remove_ptr;
+    remove_ptr = tail;
+    tail = tail->get_previous();
+    delete remove_ptr;
+
+    if(tail != NULL)
+    {
+        tail->set_next(NULL);
+    }
+
+}
+
+
+template <class T>
+void dlist<T>::show()
+{
+    
+    Dnode<T>* cursor = head;
+    while(cursor != NULL)
+    {
+        std::cout << cursor->get_data() << std::endl;
+        cursor = cursor->get_next();
+    }
+    
+}
+
+
